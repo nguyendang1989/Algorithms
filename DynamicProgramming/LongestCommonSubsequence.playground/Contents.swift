@@ -120,3 +120,37 @@ func LCSBottomUp(_ text1: String,_ text2: String) -> Int {
 }
 
 LCSBottomUp("abcde", "ace")
+
+/*APPROACH 4: Bottom Up with space optimization
+ As we have seen in approach 3: we just need all collumns of previous row to compute the next row
+ So we can save a lot of space with this optimization :
+ */
+
+func LCSOptimization(_ string1: String, _ string2: String) -> Int {
+    guard string1.count > 0, string2.count > 0 else {
+        return 0
+    }
+    let string1 = Array(string1)
+    let string2 = Array(string2)
+    let m = string1.count
+    let n = string2.count
+    var dp = Array(repeating: Array(repeating: 0, count: n+1), count: 2)
+    var bi = 0
+    
+    for i in 0...m {
+        bi = i & 1
+        for j in 0...n {
+            if i == 0 || j == 0 {
+                dp[bi][j] = 0
+            } else if string1[i-1] == string2[j-1] {
+                dp[bi][j] = dp[1-bi][j-1] + 1
+            } else {
+                dp[bi][j] = max(dp[bi][j-1], dp[1-bi][j])
+            }
+        }
+    }
+    
+    return dp[bi][n]
+}
+
+LCSOptimization("ABCBDAB", "BDCABA")

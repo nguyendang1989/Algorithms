@@ -29,4 +29,15 @@ func findDuplicatedNumber(_ arr: [Int]) -> Int {
         tortoise = arr[tortoise]
         hare = arr[arr[hare]]
     } while tortoise != hare
+    
+    tortoise = arr[0]
+    while tortoise != hare {
+        tortoise = arr[tortoise]
+        hare = arr[hare]
+    }
+    
+    return tortoise
 }
+
+findDuplicatedNumber([1,3,4,2,2])
+findDuplicatedNumber([3,1,3,4,2])

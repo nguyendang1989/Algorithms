@@ -31,7 +31,7 @@ func subsetSum(_ input: [Int], _ sum: Int) -> Bool {
     }
     var dp = Array(repeating: Array(repeating: false, count: sum + 1), count: input.count + 1)
     for i in 0...input.count {
-        dp[i][0] = true
+        dp[i][0] = true // there is a empty subset with sum = 0
     }
     
     for row in 1...input.count {
@@ -43,10 +43,12 @@ func subsetSum(_ input: [Int], _ sum: Int) -> Bool {
             }
         }
     }
+    
+    print(dp)
     return dp[input.count][sum]
 }
 
-print(subsetSum([1, 8, 2, 5], 4))
+print(subsetSum([1, 8, 2, 5], 3))
 
 
 //Problem 2: Subset Sum with O(m) space
@@ -68,7 +70,7 @@ func subsetSumOptimalSpace(_ input: [Int], _ sum: Int) -> Bool {
     var index = 0
     
     for i in 1...input.count {
-        index &= 1
+        index = i & 1
         for j in 1...sum {
             if input[i-1] > sum {
                 dp[1-index][j] = dp[index][j]
@@ -80,10 +82,11 @@ func subsetSumOptimalSpace(_ input: [Int], _ sum: Int) -> Bool {
     return dp[index][sum]
 }
 
-print(subsetSum([1, 8, 2, 5], 4))
+print(subsetSum([1, 8, 2, 5], 3))
 
 //Print All Subset with Sum
 
+/*
 func listSubsetSum(_ input: [Int], _ sum: Int) -> [[Int]] {
     guard input.count > 0 else {
         return []
@@ -108,13 +111,6 @@ func listSubsetSum(_ input: [Int], _ sum: Int) -> [[Int]] {
         return []
     }
     var result = [[Int]]()
-    for row in 1...input.count {
-        for s in 1...sum {
-            if dp[row][s] {
-                if s > input[row - 1] {
-//                    result.append()
-                }
-            }
-        }
-    }
+    return result
 }
+*/
